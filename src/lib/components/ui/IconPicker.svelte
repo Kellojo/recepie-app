@@ -258,6 +258,7 @@
 		background: var(--backgroundLight);
 		max-height: 300px;
 		overflow-y: auto;
+		scrollbar-gutter: stable;
 	}
 
 	.icon-categories {

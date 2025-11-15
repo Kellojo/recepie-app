@@ -1,6 +1,7 @@
 <script lang="ts" generics="T extends { id: string }">
 	import Icon from '@iconify/svelte';
 	import type { CollectionState } from '../stores/collectionStore';
+	import { formatTimeAgo } from '$lib/utils/dateFormatters';
 
 	interface Props {
 		state: CollectionState<T>;
@@ -40,7 +41,7 @@
 		}
 
 		if (column.date && value) {
-			return new Date(value).toLocaleDateString();
+			return formatTimeAgo(value);
 		}
 
 		return value?.toString() || '';
@@ -89,9 +90,6 @@
 									<Icon icon="mdi:inbox" width="32" height="32" />
 									<div>
 										<p>{emptyMessage}</p>
-										{#if adminUrl}
-											<a href={adminUrl} target="_blank">Open PocketBase Admin</a>
-										{/if}
 									</div>
 								</div>
 							</td>

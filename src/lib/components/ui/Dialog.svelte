@@ -36,7 +36,7 @@
 		e.stopPropagation();
 	}
 
-	// Add global keydown listener when dialog is open
+	// Add global keydown listener and prevent body scroll when dialog is open
 	$effect(() => {
 		if (isOpen) {
 			const handleGlobalKeydown = (event: KeyboardEvent) => {
@@ -45,10 +45,14 @@
 				}
 			};
 
+			// Prevent body scroll when dialog is open
+			const originalOverflow = document.body.style.overflow;
+			document.body.style.overflow = 'hidden';
 			document.addEventListener('keydown', handleGlobalKeydown);
 
 			return () => {
 				document.removeEventListener('keydown', handleGlobalKeydown);
+				document.body.style.overflow = originalOverflow;
 			};
 		}
 	});
@@ -161,6 +165,7 @@
 		flex-direction: column;
 		gap: 1.5rem;
 		overflow-y: auto;
+		scrollbar-gutter: stable;
 		flex: 1;
 	}
 

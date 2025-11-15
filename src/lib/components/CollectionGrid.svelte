@@ -1,6 +1,7 @@
 <script lang="ts" generics="T extends { id: string }">
 	import Icon from '@iconify/svelte';
 	import type { CollectionState } from '../stores/collectionStore';
+	import { formatTimeAgo } from '$lib/utils/dateFormatters';
 
 	interface GridField {
 		key: keyof T | string;
@@ -29,7 +30,6 @@
 		title = '',
 		fields,
 		emptyMessage = 'No items found.',
-		adminUrl = 'http://localhost:8090/_/',
 		columns,
 		minCardWidth = '250px',
 		onClick
@@ -47,7 +47,7 @@
 		}
 
 		if (field.date && value) {
-			return new Date(value).toLocaleDateString();
+			return formatTimeAgo(value);
 		}
 
 		return value?.toString() || '';
@@ -95,9 +95,6 @@
 					<Icon icon="mdi:inbox" width="48" height="48" />
 					<div>
 						<p>{emptyMessage}</p>
-						{#if adminUrl}
-							<a href={adminUrl} target="_blank">Open PocketBase Admin</a>
-						{/if}
 					</div>
 				</div>
 			{:else}

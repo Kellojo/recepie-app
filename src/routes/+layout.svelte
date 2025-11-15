@@ -6,7 +6,7 @@
 	let { children } = $props();
 </script>
 
-<div class="page">
+<div class="header">
 	<nav>
 		<a class="nav-item" class:active={$page.url.pathname === '/shopping-list'} href="/shopping-list"
 			>Shopping List</a
@@ -17,7 +17,9 @@
 			>Products</a
 		>
 	</nav>
+</div>
 
+<div class="page">
 	<div>
 		{@render children?.()}
 	</div>
@@ -25,12 +27,26 @@
 
 <style>
 	.page {
+		padding: 2rem;
+	}
+
+	.page,
+	nav {
 		width: 100%;
 		max-width: 848px;
-		min-height: 100vh;
 		box-sizing: border-box;
 		margin: 0 auto;
-		padding: 2rem;
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+
+	.header {
+		width: 100%;
+		padding: 1rem 0;
+		border-bottom: 1px solid var(--borderColor);
+		position: sticky;
+		top: 0;
+		backdrop-filter: blur(1rem);
 	}
 
 	nav {

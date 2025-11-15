@@ -49,8 +49,8 @@
 		isSubmitting = false;
 	});
 
-	function handleSubmit(event: Event) {
-		event.preventDefault();
+	function handleSubmit(event?: Event) {
+		event?.preventDefault();
 		if (!formData.name.trim()) return;
 
 		isSubmitting = true;
@@ -65,6 +65,10 @@
 		}
 
 		dispatch('save', { product: productData });
+	}
+
+	function handleButtonSubmit() {
+		handleSubmit();
 	}
 
 	function handleDelete() {
@@ -154,11 +158,11 @@
 		<div class="main-actions">
 			<Button variant="default" disabled={isSubmitting} onclick={handleCancel}>Cancel</Button>
 			<Button
-				type="submit"
 				variant="emphasized"
 				icon="mdi:content-save"
 				disabled={isSubmitting || !formData.name.trim()}
 				loading={isSubmitting}
+				onclick={handleButtonSubmit}
 			>
 				{mode === 'create' ? 'Create Product' : 'Save Changes'}
 			</Button>
