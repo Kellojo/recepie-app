@@ -166,4 +166,4 @@
 	{/snippet}
 </Dialog>
 
-<!-- All styles are now handled by the reusable UI components -->
+<!-- No component-specific styles needed - using Dialog's built-in action styles -->
