@@ -137,7 +137,6 @@
 					</Button>
 				{:else}
 					<div class="delete-confirm">
-						<span>Are you sure?</span>
 						<Button
 							variant="delete"
 							icon="mdi:delete"
@@ -145,7 +144,7 @@
 							loading={isSubmitting}
 							onclick={handleDelete}
 						>
-							Yes, Delete
+							Confirm Deletion
 						</Button>
 						<Button variant="default" disabled={isSubmitting} onclick={toggleDeleteConfirm}>
 							Cancel
@@ -156,7 +155,6 @@
 		{/if}
 
 		<div class="main-actions">
-			<Button variant="default" disabled={isSubmitting} onclick={handleCancel}>Cancel</Button>
 			<Button
 				variant="emphasized"
 				icon="mdi:content-save"
@@ -170,4 +168,8 @@
 	{/snippet}
 </Dialog>
 
-<!-- All styles are now handled by the reusable UI components -->
+<style>
+	.main-actions {
+		margin-left: auto;
+	}
+</style>

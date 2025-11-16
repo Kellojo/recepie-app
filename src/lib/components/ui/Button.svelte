@@ -33,7 +33,7 @@
 	{#if loading}
 		<div class="spinner"></div>
 	{:else if icon}
-		<Icon {icon} width="16" height="16" />
+		<Icon class=".buttonIcon" {icon} width="16" height="16" />
 	{/if}
 	{@render children?.()}
 </button>
@@ -74,14 +74,15 @@
 	}
 
 	.btn-emphasized {
-		background: var(--info);
+		background-color: var(--highlight);
 		color: var(--primaryText);
 		font-weight: 500;
 		box-shadow: var(--shadow-s);
+		color: var(--contrastText);
 	}
 
 	.btn-emphasized:hover:not(:disabled) {
-		background: var(--info);
+		background-color: var(--highlightSecondary);
 		filter: brightness(1.1);
 		box-shadow: var(--shadow-m);
 	}

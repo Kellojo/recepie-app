@@ -1,6 +1,7 @@
 :root {
 	--primaryText: hsl(0, 0%, 90%);
 	--secondaryText: hsl(0, 0%, 60%);
+	--contrastText: hsl(0, 0%, 20%);
 	--backgroundDark: hsl(0, 0%, 0%);
 	--background: hsl(0, 0%, 5%);
 	--backgroundTextContrastShadow: hsl(0, 0%, 5%, 25%);
@@ -33,6 +34,9 @@
 
 	--info: hsl(204, 100%, 50%);
 	--infoSecondary: hsl(204, 100%, 15%);
+
+	--highlight: hsl(0, 0%, 100%);
+	--highlightSecondary: hsl(0, 0%, 90%);
 
 	--cellSize: 128px;
 	--cellGap: 1rem;
