@@ -7,7 +7,7 @@
 		subtitle = '',
 		buttonText = '',
 		buttonIcon = 'mdi:plus',
-		onButtonClick,
+		onButtonClick = null,
 		buttonDisabled = false,
 		searchValue = $bindable(''),
 		searchPlaceholder = 'Search...',

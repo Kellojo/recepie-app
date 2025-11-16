@@ -232,21 +232,6 @@
 </div>
 
 <style>
-	.page-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 2rem;
-		gap: 1rem;
-	}
-
-	.page-header h1 {
-		margin: 0;
-		font-size: 2rem;
-		font-weight: 700;
-		color: var(--text-primary);
-	}
-
 	.quick-add-section {
 		margin-bottom: 2rem;
 	}
@@ -459,11 +444,6 @@
 	@media (max-width: 640px) {
 		.shopping-list-page {
 			padding: 1rem 0.75rem;
-		}
-
-		.page-header h1 {
-			font-size: 1.5rem;
-			text-align: center;
 		}
 
 		.quick-add-container {

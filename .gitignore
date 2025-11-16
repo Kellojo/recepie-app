@@ -1,5 +1,8 @@
 node_modules
 
+# Docker volumes
+pb_data
+
 # Output
 .output
 .vercel

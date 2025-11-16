@@ -1,7 +1,9 @@
 import PocketBase from 'pocketbase';
-import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
+import { browser } from '$app/environment';
 
-const pb = new PocketBase(PUBLIC_POCKETBASE_URL || 'http://localhost:8090');
+// In Docker deployment, PocketBase serves both the API and the static files
+// Use the same host and port as the current location
+const pb = new PocketBase(browser ? window.location.origin : 'http://localhost:8080');
 
 export default pb;
 

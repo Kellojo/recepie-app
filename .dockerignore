@@ -1,0 +1,17 @@
+node_modules
+.git
+.gitignore
+.svelte-kit
+build
+.env
+.env.*
+Dockerfile
+docker-compose.yml
+.dockerignore
+README.md
+.vscode
+pb_data/*
+!pb_data/.gitkeep
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
