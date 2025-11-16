@@ -115,8 +115,52 @@ const defaultProducts = [
 	['Popkorn', 'noto:popcorn', 0],
 	['Kekse', 'noto:cookie', 0],
 
+	// Cleaning Supplies
+	['Spülmittel', 'noto:soap', 0],
+	['Schwamm', 'noto:sponge', 0],
+	['Allzweckreiniger', 'noto:soap', 0],
+	['Papiertücher', 'noto:paper-towel', 0],
+	['Müllbeutel', 'noto:trash-bag', 0],
+	['Geschirrspültabs', 'noto:soap', 0],
+	['Klarspüler', 'noto:soap', 0],
+	['Backofenreiniger', 'noto:soap', 0],
+	['Badreiniger', 'noto:soap', 0],
+	['Fensterreiniger', 'noto:soap', 0],
+	['Toilettenreiniger', 'noto:soap', 0],
+	['Toilettenpapier', 'fa-solid:toilet-paper', 0],
+	['Küchenrolle', 'fa-solid:toilet-paper', 0],
+
+	// Personal Care
+	['Flüssigseife', 'noto:soap', 0],
+	['Shampoo', 'noto:soap', 0],
+	['Conditioner', 'noto:soap', 0],
+	['Zahnpasta', 'noto:toothbrush', 0],
+	['Zahnbürste', 'noto:toothbrush', 0],
+	['Zahnbürstenköpfe', 'noto:toothbrush', 0],
+	['Deodorant', 'noto:deodorant', 0],
+	['Rasierklingen', 'noto:razor', 0],
+	['Rasierer', 'noto:razor', 0],
+	['Duschgel', 'noto:shower', 0],
+	['Körperlotion', 'noto:lotion-bottle', 0],
+
+	// First Aid
+	['Pflaster', 'noto:adhesive-bandage', 0],
+	['Desinfektionsmittel', 'noto:soap', 0],
+	['Schmerzmittel', 'noto:pill', 0],
+
 	// Other
-	['Eis', 'noto:ice', 0]
+	['Alufolie', 'noto:aluminum-foil', 0],
+	['Frischhaltefolie', 'noto:plastic-wrap', 0],
+	['Gefrierbeutel', 'noto:zipper-lock-bag', 0],
+	['Backpapier', 'noto:baking-paper', 0],
+	['Küchenhandschuhe', 'noto:gloves', 0],
+	['Batterien', 'noto:battery', 0],
+	['Kerzen', 'noto:candle', 0],
+	['Blumen', 'noto:bouquet', 0],
+
+	// Other
+	['Eis', 'noto:ice', 0],
+	['Eiscreme', 'noto:ice-cream', 0]
 ];
 
 migrate(
