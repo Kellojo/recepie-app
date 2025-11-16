@@ -31,15 +31,30 @@
 
 	const iconCategories = {
 		'Food & Produce': [
-			'mdi:food-apple',
-			'mdi:food-variant',
-			'mdi:carrot',
-			'mdi:leaf',
+			'noto:red-apple',
+			'noto:green-apple',
+			'noto:pear',
+			'noto:bell-pepper',
+			'noto:hot-pepper',
+			'noto:carrot',
+			'noto:broccoli',
+			'noto:pea-pod',
 			'noto:avocado',
 			'noto:tomato',
-			'noto:lemon',
+			'noto:onion',
+			'noto:garlic',
+			'noto:ginger-root',
 			'noto:strawberry',
-			'noto:cherries'
+			'noto:blueberries',
+			'noto:cherries',
+			'noto:banana',
+			'noto:lime',
+			'noto:lemon',
+			'noto:pineapple',
+			'noto:kiwi-fruit',
+			'noto:watermelon',
+			'noto:melon',
+			'noto:grapes'
 		],
 		'Grains & Bakery': [
 			'mdi:bread-slice',
@@ -52,7 +67,7 @@
 			'mdi:grain'
 		],
 		'Dairy & Protein': [
-			'mdi:egg',
+			'noto:egg',
 			'noto:cheese-wedge',
 			'noto-v1:fish',
 			'mdi:cow',
@@ -63,19 +78,22 @@
 		'Pantry & Spices': [
 			'mdi:bottle-wine-outline',
 			'mdi:shaker-outline',
-			'mdi:cup',
-			'mdi:coffee',
-			'mdi:tea-hot',
-			'mdi:honey',
-			'mdi:oil'
+			'noto:hot-beverage',
+			'noto:honey-pot',
+			'ic:twotone-water-drop'
+		],
+		'Household Items': [
+			'noto:battery',
+			'noto:soap',
+			'streamline-sharp-color:toilet-paper-flat',
+			'streamline-ultimate-color:garbage-bin'
 		],
 		Generic: [
 			'mdi:package-variant',
 			'mdi:basket',
 			'mdi:shopping-basket',
 			'mdi:food',
-			'mdi:silverware-fork-knife',
-			'noto:battery'
+			'mdi:silverware-fork-knife'
 		]
 	};
 

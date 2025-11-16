@@ -26,12 +26,11 @@
 		width: 100%;
 		padding: 0.75rem 1rem 0.75rem 2.5rem;
 		border: 2px solid var(--borderColor);
-		border-radius: 1rem;
+		border-radius: 0.5rem;
 		background: var(--background);
 		color: var(--primaryText);
 		font-size: 1rem;
 		transition: all 0.2s ease;
-		box-shadow: var(--shadow-s);
 	}
 
 	.search-input::placeholder {

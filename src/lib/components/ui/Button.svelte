@@ -9,6 +9,7 @@
 		icon?: string;
 		onclick?: () => void;
 		children?: any;
+		class?: string;
 	}
 
 	let {
@@ -53,6 +54,7 @@
 		text-overflow: ellipsis;
 		overflow: hidden;
 		min-width: 0;
+		min-height: 2.5rem;
 	}
 
 	.btn:disabled {
@@ -82,7 +84,6 @@
 		background: var(--info);
 		filter: brightness(1.1);
 		box-shadow: var(--shadow-m);
-		transform: translateY(-1px);
 	}
 
 	.btn-emphasized:disabled {

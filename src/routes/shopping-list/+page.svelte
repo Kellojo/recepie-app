@@ -6,6 +6,7 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import Icon from '@iconify/svelte';
 	import { createRecord, updateRecord, deleteRecord, getRecord } from '$lib/utils/pocketbaseUtils';
+	import PageHeader from '$lib/components/ui/PageHeader.svelte';
 
 	// Use the real collection system with product expansion
 	const { state: shoppingState, load: loadShoppingList } = useCollection<ShoppingListItem>(
@@ -140,9 +141,11 @@
 </script>
 
 <div class="shopping-list-page">
-	<div class="page-header">
-		<h1>Shopping List</h1>
-	</div>
+	<PageHeader
+		title="Shopping List"
+		subtitle="{shoppingState.items.length} items on the list"
+		searchPlaceholder="Search products..."
+	/>
 
 	<!-- Quick Add Bar -->
 	<div class="quick-add-section">
@@ -229,7 +232,6 @@
 </div>
 
 <style>
-
 	.page-header {
 		display: flex;
 		justify-content: space-between;

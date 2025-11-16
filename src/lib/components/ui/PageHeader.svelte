@@ -1,6 +1,6 @@
 <script lang="ts">
+	import Button from './Button.svelte';
 	import SearchField from './SearchField.svelte';
-	import Icon from '@iconify/svelte';
 
 	let {
 		title,
@@ -22,22 +22,29 @@
 			<span class="subtitle">{subtitle}</span>
 		</div>
 
-		{#if showSearch}
-			<SearchField bind:value={searchValue} placeholder={searchPlaceholder} />
-		{/if}
+		<div class="search-container">
+			{#if showSearch}
+				<SearchField bind:value={searchValue} placeholder={searchPlaceholder} />
+			{/if}
+		</div>
 
-		{#if buttonText}
-			<button class="action-button" onclick={onButtonClick} disabled={buttonDisabled}>
-				<Icon icon={buttonIcon} width="20" height="20" />
-				{buttonText}
-			</button>
-		{/if}
+		<div class="action-container">
+			{#if buttonText}
+				<Button
+					icon={buttonIcon}
+					variant="emphasized"
+					onclick={onButtonClick}
+					disabled={buttonDisabled}>{buttonText}</Button
+				>
+			{/if}
+		</div>
 	</div>
 </div>
 
 <style>
 	.page-header {
-		display: flex;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
 		justify-content: space-between;
 		align-items: center;
 		padding-bottom: 1rem;
@@ -54,34 +61,15 @@
 		color: var(--secondaryText);
 	}
 
-	.action-button {
+	.search-container {
+		display: flex;
+		justify-content: center;
+	}
+
+	.action-container {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		background: var(--info);
-		border: none;
-		color: var(--primaryText);
-		padding: 0.75rem 1.5rem;
-		border-radius: 8px;
-		cursor: pointer;
-		font-size: 0.9rem;
-		font-weight: 500;
-		transition: all 0.2s ease;
-		box-shadow: var(--shadow-s);
-	}
-
-	.action-button:hover:not(:disabled) {
-		background: var(--info);
-		filter: brightness(1.1);
-		box-shadow: var(--shadow-m);
-		transform: translateY(-1px);
-	}
-
-	.action-button:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-		transform: none;
-		box-shadow: var(--shadow-s);
+		justify-content: flex-end;
 	}
 
 	@media (max-width: 768px) {
@@ -93,11 +81,6 @@
 
 		.page-header h1 {
 			font-size: 1.5rem;
-		}
-
-		.action-button {
-			align-self: stretch;
-			justify-content: center;
 		}
 	}
 </style>

@@ -9,7 +9,9 @@
 	// Search state
 	let searchQuery = $state('');
 
-	const { state: productsState, load } = useProducts();
+	const { state: productsState, load } = useProducts({
+		sort: 'name'
+	});
 
 	// Create a derived state that mimics the original state but with filtered items
 	const filteredState = $derived.by(() => {
@@ -95,7 +97,7 @@
 <div class="products-page">
 	<PageHeader
 		title="Products"
-		subtitle="Manage your product inventory"
+		subtitle="{filteredState.items.length} products found"
 		buttonText="Add Product"
 		buttonIcon="mdi:plus"
 		onButtonClick={openCreateDialog}
