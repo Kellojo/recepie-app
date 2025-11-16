@@ -204,26 +204,6 @@
 		gap: 1rem;
 	}
 
-	.table-empty a {
-		margin-top: 0.5rem;
-		padding: 0.5rem 1rem;
-		background: var(--info);
-		color: var(--primaryText);
-		border: none;
-		border-radius: 4px;
-		text-decoration: none;
-		display: inline-block;
-		cursor: pointer;
-		font-size: 0.9rem;
-		box-shadow: var(--shadow-s);
-	}
-
-	.table-empty a:hover {
-		background: var(--info);
-		filter: brightness(1.1);
-		box-shadow: var(--shadow-m);
-	}
-
 	.table-container {
 		background: var(--backgroundLight);
 		border-radius: 8px;
@@ -252,7 +232,7 @@
 
 	th {
 		background: var(--background);
-		font-weight: 600;
+		font-weight: bold;
 		color: var(--primaryText);
 		border-bottom: 1px solid var(--borderColor);
 	}
@@ -289,24 +269,6 @@
 		outline-offset: -2px;
 	}
 
-	/* Default column styles - widths are now controlled via props */
-	.col-id {
-		font-family: monospace;
-		font-size: 0.9rem;
-		color: var(--secondaryText);
-	}
-
-	.col-icon {
-		text-align: center;
-		white-space: normal;
-		overflow: visible;
-		text-overflow: unset;
-	}
-
-	.col-name {
-		font-weight: 500;
-	}
-
 	.col-created,
 	.col-updated {
 		color: var(--secondaryText);
@@ -333,10 +295,6 @@
 	}
 
 	@media (max-width: 768px) {
-		.collection-list {
-			padding: 1rem;
-		}
-
 		.header {
 			flex-direction: column;
 			align-items: flex-start;
@@ -350,10 +308,6 @@
 		th,
 		td {
 			padding: 0.75rem 0.5rem;
-		}
-
-		.col-id {
-			display: none;
 		}
 	}
 </style>

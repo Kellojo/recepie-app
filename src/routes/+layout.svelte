@@ -33,7 +33,7 @@
 	.page,
 	nav {
 		width: 100%;
-		max-width: 848px;
+		max-width: 1088px;
 		box-sizing: border-box;
 		margin: 0 auto;
 		padding-left: 2rem;

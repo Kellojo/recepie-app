@@ -54,9 +54,9 @@
 		'Dairy & Protein': [
 			'mdi:egg',
 			'noto:cheese-wedge',
-			'mdi:fish',
+			'noto-v1:fish',
 			'mdi:cow',
-			'noto:milk-glass',
+			'streamline-cyber-color:milk-carton-1',
 			'mdi:bottle-wine',
 			'mdi:food-steak'
 		],
@@ -74,7 +74,8 @@
 			'mdi:basket',
 			'mdi:shopping-basket',
 			'mdi:food',
-			'mdi:silverware-fork-knife'
+			'mdi:silverware-fork-knife',
+			'noto:battery'
 		]
 	};
 

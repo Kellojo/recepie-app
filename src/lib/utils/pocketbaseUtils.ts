@@ -16,8 +16,8 @@ export async function deleteRecord(collection: string, id: string): Promise<void
 	await pb.collection(collection).delete(id);
 }
 
-export async function getRecord<T>(collection: string, id: string): Promise<T> {
-	return await pb.collection(collection).getOne(id);
+export async function getRecord<T>(collection: string, id: string, expand?: string): Promise<T> {
+	return await pb.collection(collection).getOne(id, { expand });
 }
 
 export async function listRecords<T>(

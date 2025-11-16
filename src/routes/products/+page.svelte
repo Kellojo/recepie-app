@@ -1,12 +1,29 @@
 <script lang="ts">
 	import CollectionList from '$lib/components/CollectionList.svelte';
 	import ProductDialog from '$lib/components/ProductDialog.svelte';
-	import Icon from '@iconify/svelte';
+	import PageHeader from '$lib/components/ui/PageHeader.svelte';
 	import { useProducts } from '$lib/composables/useProducts';
 	import pb from '$lib/pocketbase';
 	import type Product from '$lib/types/Product';
 
+	// Search state
+	let searchQuery = $state('');
+
 	const { state: productsState, load } = useProducts();
+
+	// Create a derived state that mimics the original state but with filtered items
+	const filteredState = $derived.by(() => {
+		const filteredItems = searchQuery.trim()
+			? productsState.items.filter((product) =>
+					product.name.toLowerCase().includes(searchQuery.toLowerCase().trim())
+				)
+			: productsState.items;
+
+		return {
+			...productsState,
+			items: filteredItems
+		};
+	});
 
 	// Dialog state
 	let dialogOpen = $state(false);
@@ -18,6 +35,7 @@
 	const columns = [
 		{ key: 'icon', label: 'Icon', icon: true, width: '10%', minWidth: '60px' },
 		{ key: 'name', label: 'Name', width: '60%', minWidth: '200px' },
+		{ key: 'shoppingCartUsages', label: 'Usages', width: '250px', minWidth: '200px' },
 		{ key: 'updated', label: 'Updated', date: true, width: '30%', minWidth: '150px' }
 	];
 
@@ -75,18 +93,24 @@
 </script>
 
 <div class="products-page">
-	<div class="page-header">
-		<h1>Products</h1>
-		<button class="add-button" onclick={openCreateDialog} disabled={isLoading}>
-			<Icon icon="mdi:plus" width="20" height="20" />
-			Add Product
-		</button>
-	</div>
+	<PageHeader
+		title="Products"
+		subtitle="Manage your product inventory"
+		buttonText="Add Product"
+		buttonIcon="mdi:plus"
+		onButtonClick={openCreateDialog}
+		buttonDisabled={isLoading}
+		showSearch={true}
+		bind:searchValue={searchQuery}
+		searchPlaceholder="Search products..."
+	/>
 
 	<CollectionList
-		state={productsState}
+		state={filteredState}
 		{columns}
-		emptyMessage="No products found. Click 'Add Product' to create your first product."
+		emptyMessage={searchQuery.trim()
+			? `No products found matching "${searchQuery.trim()}".`
+			: "No products found. Click 'Add Product' to create your first product."}
 		onRowClick={editProduct}
 	/>
 </div>
@@ -103,68 +127,5 @@
 <style>
 	.products-page {
 		width: 100%;
-	}
-
-	.page-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 1.5rem;
-		padding-bottom: 1rem;
-		border-bottom: 1px solid var(--borderColor);
-	}
-
-	.page-header h1 {
-		margin: 0;
-		color: var(--primaryText);
-		font-size: 1.75rem;
-		font-weight: 600;
-	}
-
-	.add-button {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		background: var(--info);
-		border: none;
-		color: var(--primaryText);
-		padding: 0.75rem 1.5rem;
-		border-radius: 8px;
-		cursor: pointer;
-		font-size: 0.9rem;
-		font-weight: 500;
-		transition: all 0.2s ease;
-		box-shadow: var(--shadow-s);
-	}
-
-	.add-button:hover:not(:disabled) {
-		background: var(--info);
-		filter: brightness(1.1);
-		box-shadow: var(--shadow-m);
-		transform: translateY(-1px);
-	}
-
-	.add-button:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-		transform: none;
-		box-shadow: var(--shadow-s);
-	}
-
-	@media (max-width: 768px) {
-		.page-header {
-			flex-direction: column;
-			gap: 1rem;
-			align-items: flex-start;
-		}
-
-		.page-header h1 {
-			font-size: 1.5rem;
-		}
-
-		.add-button {
-			align-self: stretch;
-			justify-content: center;
-		}
 	}
 </style>
