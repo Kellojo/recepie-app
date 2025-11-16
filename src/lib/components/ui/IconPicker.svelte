@@ -89,7 +89,7 @@
 			'streamline-ultimate-color:garbage-bin'
 		],
 		Generic: [
-			'mdi:package-variant',
+			'noto:package',
 			'mdi:basket',
 			'mdi:shopping-basket',
 			'mdi:food',

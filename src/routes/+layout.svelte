@@ -2,6 +2,7 @@
 	import '../app.css';
 	import '../fonts.css';
 	import { page } from '$app/stores';
+	import { dev } from '$app/environment';
 
 	let { children } = $props();
 </script>
@@ -16,6 +17,8 @@
 		<a class="nav-item" class:active={$page.url.pathname === '/products'} href="/products"
 			>Products</a
 		>
+
+		<a class="nav-item adminPanel" href={dev ? 'http://localhost:8080/_' : '/_'}>Admin Panel</a>
 	</nav>
 </div>
 
@@ -47,6 +50,7 @@
 		position: sticky;
 		top: 0;
 		backdrop-filter: blur(1rem);
+		overflow: auto;
 	}
 
 	nav {
@@ -61,6 +65,7 @@
 		font-weight: bold;
 		padding: 0.5rem 1rem;
 		border-radius: 0.5rem;
+		white-space: nowrap;
 	}
 
 	.nav-item:hover {
@@ -75,5 +80,10 @@
 
 	.nav-item.active:hover {
 		filter: brightness(1.1);
+	}
+
+	.adminPanel {
+		margin-left: auto;
+		color: var(--secondaryText);
 	}
 </style>

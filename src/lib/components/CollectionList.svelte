@@ -295,12 +295,6 @@
 	}
 
 	@media (max-width: 768px) {
-		.header {
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 1rem;
-		}
-
 		table {
 			font-size: 0.9rem;
 		}

@@ -10,7 +10,6 @@ services:
       - ./pb_data:/app/pb_data
       # Optional: Mount config files
       - ./pb_hooks:/app/pb_hooks
-      - ./pb_migrations:/app/pb_migrations
     environment:
       - PB_ENCRYPTION_KEY=${PB_ENCRYPTION_KEY:-your-32-char-encryption-key-here}
     restart: unless-stopped

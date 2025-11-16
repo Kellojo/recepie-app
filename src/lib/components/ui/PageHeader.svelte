@@ -78,9 +78,5 @@
 			gap: 1rem;
 			align-items: flex-start;
 		}
-
-		.page-header h1 {
-			font-size: 1.5rem;
-		}
 	}
 </style>

@@ -29,6 +29,12 @@
 	}
 
 	function handleOverlayClick() {
+		if (
+			document.activeElement?.tagName === 'INPUT' ||
+			document.activeElement?.tagName === 'TEXTAREA'
+		) {
+			return; // Don't close the dialog if an input or textarea is focused
+		}
 		handleClose();
 	}
 

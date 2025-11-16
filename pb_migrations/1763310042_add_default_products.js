@@ -1,88 +1,126 @@
 /// <reference path="../pb_data/types.d.ts" />
+
+const defaultProducts = [
+	// Fruits
+	['Apfel', 'noto:red-apple', 0],
+	['Apfel (grün)', 'noto:green-apple', 0],
+	['Birne', 'noto:pear', 0],
+	['Banane', 'noto:banana', 0],
+	['Orange', 'noto:orange-circle', 0],
+	['Zitrone', 'noto:lemon', 0],
+	['Erdbeere', 'noto:strawberry', 0],
+	['Blaubeere', 'noto:blueberries', 0],
+	['Mango', 'noto:mango', 0],
+	['Trauben', 'noto:grapes', 0],
+	['Ananas', 'noto:pineapple', 0],
+	['Wassermelone', 'noto:watermelon', 0],
+	['Melone', 'noto:melon', 0],
+	['Kirsche', 'noto:cherries', 0],
+	['Pfirsich', 'noto:peach', 0],
+	['Kiwi', 'noto:kiwi-fruit', 0],
+
+	// Vegetables
+	['Tomate', 'noto:tomato', 0],
+	['Zwiebel', 'noto:onion', 0],
+	['Knoblauch', 'noto:garlic', 0],
+	['Karotte', 'noto:carrot', 0],
+	['Kartoffel', 'noto:potato', 0],
+	['Paprika', 'noto:bell-pepper', 0],
+	['Paprika (rot)', 'noto:bell-pepper', 0],
+	['Paprika (grün)', 'noto:bell-pepper', 0],
+	['Paprika (gelb)', 'noto:bell-pepper', 0],
+	['Champignons', 'noto:brown-mushroom', 0],
+	['Spinat', 'twemoji:leafy-green', 0],
+	['Salat', 'twemoji:leafy-green', 0],
+	['Avocado', 'noto:avocado', 0],
+	['Gurke', 'noto:cucumber', 0],
+	['Brokkoli', 'noto:broccoli', 0],
+	['Oliven', 'noto:olive', 0],
+	['Zucchini', 'noto:cucumber', 0],
+	['Süßkartoffel', 'noto:sweet-potato', 0],
+	['Mais', 'noto:ear-of-corn', 0],
+	['Ingwer', 'noto:ginger-root', 0],
+
+	// Meat & Protein
+	['Hähnchenbrust', 'noto:chicken', 0],
+	['Rinderhackfleisch', 'noto:cut-of-meat', 0],
+	['Lachs', 'noto:fish', 0],
+	['Eier', 'noto:egg', 0],
+	['Tofu', 'hugeicons:ice-cubes', 0],
+
+	// Dairy
+	['Milch', 'streamline-cyber-color:milk-carton-1', 0],
+	['Käse', 'noto:cheese-wedge', 0],
+	['Butter', 'noto:butter', 0],
+	['Griechischer Joghurt', '', 0],
+
+	// Grains & Bread
+	['Reis', 'noto:cooked-rice', 0],
+	['Pasta', 'noto:pasta', 0],
+	['Brot', 'noto:baguette-bread', 0],
+	['Croissant', 'noto:croissant', 0],
+	['Baguette', 'noto:baguette-bread', 0],
+	['Brötchen', 'noto:bread', 0],
+	['Bretzel', 'noto:pretzel', 0],
+	['Pita Brot', 'noto:flatbread', 0],
+	['Wraps', 'noto:flatbread', 0],
+	['Haferflocken', 'noto:grain', 0],
+	['Quinoa', 'noto:grain', 0],
+
+	// Pantry Staples
+	['Olivenöl', 'noto:olive', 0],
+	['Salz', 'noto:salt', 0],
+	['Schwarzer Pfeffer', 'noto:salt', 0],
+	['Zucker', 'hugeicons:ice-cubes', 0],
+	['Mehl', 'noto:sack', 0],
+	['Backpulver', 'noto:powder', 0],
+	['Vanilleextrakt', 'noto:bottle-tonic-outline', 0],
+
+	// Herbs & Spices
+	['Basilikum', 'noto-v1:herb', 0],
+	['Oregano', 'noto-v1:herb', 0],
+	['Thymian', 'noto-v1:herb', 0],
+	['Rosmarin', 'noto-v1:herb', 0],
+	['Paprikapulver', 'noto-v1:herb', 0],
+	['Kreuzkümmel', 'noto-v1:herb', 0],
+
+	// Canned/Packaged
+	['Tomaten', 'noto:canned-food', 0],
+	['Kokosmilch', 'noto:coconut', 0],
+	['Hühnerbrühe', 'noto:bottle-tonic', 0],
+	['Schwarze Bohnen', 'noto:beans', 0],
+	['Kidneybohnen', 'noto:beans', 0],
+	['Kichererbsen', 'noto:can', 0],
+
+	// Condiments & Sauces
+	['Soja Sauce', 'game-icons:beer-bottle', 0],
+	['Hot Sauce', 'noto:hot-pepper', 0],
+	['Mayonnaise', 'game-icons:ketchup', 0],
+	['Ketchup', 'game-icons:ketchup', 0],
+	['Senf', 'game-icons:ketchup', 0],
+
+	// Beverages
+	['Kaffee', 'noto:hot-beverage', 0],
+	['Tee', 'noto:teacup-without-handle', 0],
+	['Orangensaft', 'noto:orange-circle', 0],
+
+	// Breakfast Items
+	['Erdnussbutter', 'noto:peanuts', 0],
+	['Marmelade', 'noto:jar', 0],
+	['Honig', 'noto:honey-pot', 0],
+
+	// Snacks
+	['Erdnüsse', 'noto:peanuts', 0],
+	['Schokolade', 'noto:chocolate-bar', 0],
+	['Popkorn', 'noto:popcorn', 0],
+	['Kekse', 'noto:cookie', 0],
+
+	// Other
+	['Eis', 'noto:ice', 0]
+];
+
 migrate(
 	(db) => {
-		const defaultProducts = [
-			// Fruits
-			['Apples', 'mdi:apple', 0],
-			['Bananas', 'mdi:food-banana', 0],
-			['Oranges', 'mdi:fruit-citrus', 0],
-			['Lemons', 'mdi:fruit-citrus', 0],
-			['Strawberries', 'mdi:fruit-cherries', 0],
-			['Blueberries', 'mdi:fruit-grapes', 0],
-
-			// Vegetables
-			['Tomatoes', 'mdi:food-apple', 0],
-			['Onions', 'mdi:food-variant', 0],
-			['Garlic', 'mdi:food-variant', 0],
-			['Carrots', 'mdi:carrot', 0],
-			['Potatoes', 'mdi:food-variant', 0],
-			['Bell Peppers', 'mdi:food-variant', 0],
-			['Mushrooms', 'mdi:mushroom', 0],
-			['Spinach', 'mdi:leaf', 0],
-			['Lettuce', 'mdi:leaf', 0],
-
-			// Meat & Protein
-			['Chicken Breast', 'mdi:food-drumstick', 0],
-			['Ground Beef', 'mdi:food-steak', 0],
-			['Salmon', 'mdi:fish', 0],
-			['Eggs', 'mdi:egg', 0],
-			['Tofu', 'mdi:cube-outline', 0],
-
-			// Dairy
-			['Milk', 'mdi:cup', 0],
-			['Cheese', 'mdi:cheese', 0],
-			['Butter', 'mdi:butter', 0],
-			['Greek Yogurt', 'mdi:cup', 0],
-
-			// Grains & Bread
-			['Rice', 'mdi:rice', 0],
-			['Pasta', 'mdi:pasta', 0],
-			['Bread', 'mdi:baguette', 0],
-			['Oats', 'mdi:grain', 0],
-			['Quinoa', 'mdi:grain', 0],
-
-			// Pantry Staples
-			['Olive Oil', 'mdi:bottle-tonic', 0],
-			['Salt', 'mdi:shaker-outline', 0],
-			['Black Pepper', 'mdi:shaker-outline', 0],
-			['Sugar', 'mdi:cube-outline', 0],
-			['Flour', 'mdi:sack', 0],
-			['Baking Powder', 'mdi:powder', 0],
-			['Vanilla Extract', 'mdi:bottle-tonic-outline', 0],
-
-			// Herbs & Spices
-			['Basil', 'mdi:leaf', 0],
-			['Oregano', 'mdi:leaf', 0],
-			['Thyme', 'mdi:leaf', 0],
-			['Rosemary', 'mdi:leaf', 0],
-			['Paprika', 'mdi:shaker-outline', 0],
-			['Cumin', 'mdi:shaker-outline', 0],
-
-			// Canned/Packaged
-			['Canned Tomatoes', 'mdi:can', 0],
-			['Coconut Milk', 'mdi:bottle-tonic', 0],
-			['Chicken Broth', 'mdi:bottle-tonic', 0],
-			['Black Beans', 'mdi:can', 0],
-			['Chickpeas', 'mdi:can', 0],
-
-			// Condiments & Sauces
-			['Soy Sauce', 'mdi:bottle-tonic-outline', 0],
-			['Hot Sauce', 'mdi:bottle-tonic-outline', 0],
-			['Mayonnaise', 'mdi:bottle-tonic-outline', 0],
-			['Ketchup', 'mdi:bottle-tonic-outline', 0],
-			['Mustard', 'mdi:bottle-tonic-outline', 0],
-
-			// Beverages
-			['Coffee', 'mdi:coffee', 0],
-			['Tea', 'mdi:tea', 0],
-			['Orange Juice', 'mdi:cup', 0],
-
-			// Snacks
-			['Almonds', 'mdi:nut', 0],
-			['Peanut Butter', 'mdi:peanut', 0],
-			['Dark Chocolate', 'mdi:candy', 0]
-		];
-
 		// Insert default products using SQL
 		defaultProducts.forEach((product) => {
 			const [name, icon, shoppingCartUsages] = product;
@@ -111,68 +149,8 @@ migrate(
 	},
 	(db) => {
 		// Rollback: Delete all default products
-		const defaultProductNames = [
-			'Apples',
-			'Bananas',
-			'Oranges',
-			'Lemons',
-			'Strawberries',
-			'Blueberries',
-			'Tomatoes',
-			'Onions',
-			'Garlic',
-			'Carrots',
-			'Potatoes',
-			'Bell Peppers',
-			'Mushrooms',
-			'Spinach',
-			'Lettuce',
-			'Chicken Breast',
-			'Ground Beef',
-			'Salmon',
-			'Eggs',
-			'Tofu',
-			'Milk',
-			'Cheese',
-			'Butter',
-			'Greek Yogurt',
-			'Rice',
-			'Pasta',
-			'Bread',
-			'Oats',
-			'Quinoa',
-			'Olive Oil',
-			'Salt',
-			'Black Pepper',
-			'Sugar',
-			'Flour',
-			'Baking Powder',
-			'Vanilla Extract',
-			'Basil',
-			'Oregano',
-			'Thyme',
-			'Rosemary',
-			'Paprika',
-			'Cumin',
-			'Canned Tomatoes',
-			'Coconut Milk',
-			'Chicken Broth',
-			'Black Beans',
-			'Chickpeas',
-			'Soy Sauce',
-			'Hot Sauce',
-			'Mayonnaise',
-			'Ketchup',
-			'Mustard',
-			'Coffee',
-			'Tea',
-			'Orange Juice',
-			'Almonds',
-			'Peanut Butter',
-			'Dark Chocolate'
-		];
-
-		defaultProductNames.forEach((name) => {
+		defaultProducts.forEach((product) => {
+			const [name] = product;
 			db.newQuery(`DELETE FROM products WHERE name = {:name}`).bind({ name: name }).execute();
 		});
 	}

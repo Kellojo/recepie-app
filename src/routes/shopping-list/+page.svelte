@@ -20,7 +20,7 @@
 
 	// Helper functions for grid items
 	function getItemIcon(item: ShoppingListItem): string {
-		return item.expand?.product?.icon || item.icon || 'mdi:package-variant';
+		return item.expand?.product?.icon || item.icon || 'noto:package';
 	}
 
 	function getItemName(item: ShoppingListItem): string {
@@ -75,7 +75,7 @@
 			// First create the product
 			const newProduct = await createRecord<Product>('products', {
 				name: quickAddInput.trim(),
-				icon: 'mdi:package-variant',
+				icon: 'noto:package',
 				shoppingCartUsages: 1
 			});
 
@@ -170,7 +170,7 @@
 					<div class="suggestions">
 						{#each suggestions as product (product.id)}
 							<button class="suggestion-item" onclick={() => addProductQuick(product)}>
-								<Icon icon={product.icon || 'mdi:package-variant'} />
+								<Icon icon={product.icon || 'noto:package'} />
 								<span>{product.name}</span>
 								{#if product.shoppingCartUsages > 0}
 									<span class="usage">Used {product.shoppingCartUsages} times</span>

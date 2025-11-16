@@ -39,7 +39,8 @@ COPY --from=builder /app/build ./public
 COPY --from=builder /app/package.json ./
 
 # Copy PocketBase configuration if exists
-COPY pb_* ./
+COPY pb_migrations ./pb_migrations
+COPY pb_hooks ./pb_hooks
 
 # Create data directory for PocketBase
 RUN mkdir -p pb_data

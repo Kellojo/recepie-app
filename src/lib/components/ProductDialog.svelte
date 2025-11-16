@@ -57,7 +57,7 @@
 
 		const productData: Partial<Product> = {
 			name: formData.name.trim(),
-			icon: formData.icon.trim() || 'mdi:package-variant'
+			icon: formData.icon.trim() || 'noto:package'
 		};
 
 		if (mode === 'edit' && product) {
