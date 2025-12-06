@@ -10,15 +10,12 @@
 		isOpen: boolean;
 		product?: Product | null;
 		mode: 'create' | 'edit';
+		onsave: (product: Partial<Product>) => void;
+		ondelete: (id: string) => void;
+		oncancel: () => void;
 	}
 
-	let { isOpen = $bindable(), product = null, mode }: Props = $props();
-
-	const dispatch = createEventDispatcher<{
-		save: { product: Partial<Product> };
-		delete: { id: string };
-		cancel: void;
-	}>();
+	let { isOpen = $bindable(), product = null, mode, onsave, ondelete, oncancel }: Props = $props();
 
 	// Form state
 	let formData = $state({
@@ -64,7 +61,7 @@
 			productData.id = product.id;
 		}
 
-		dispatch('save', { product: productData });
+		onsave(productData);
 	}
 
 	function handleButtonSubmit() {
@@ -75,12 +72,12 @@
 		if (!product?.id || !deleteConfirm) return;
 
 		isSubmitting = true;
-		dispatch('delete', { id: product.id });
+		ondelete(product.id);
 	}
 
 	function handleCancel() {
 		isOpen = false;
-		dispatch('cancel');
+		oncancel();
 	}
 
 	function handleIconSelect(iconName: string) {

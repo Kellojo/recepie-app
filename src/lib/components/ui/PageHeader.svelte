@@ -9,9 +9,7 @@
 		buttonIcon = 'mdi:plus',
 		onButtonClick = null,
 		buttonDisabled = false,
-		searchValue = $bindable(''),
-		searchPlaceholder = 'Search...',
-		showSearch = false
+		searchField
 	} = $props();
 </script>
 
@@ -23,9 +21,7 @@
 		</div>
 
 		<div class="search-container">
-			{#if showSearch}
-				<SearchField bind:value={searchValue} placeholder={searchPlaceholder} />
-			{/if}
+			{@render searchField?.()}
 		</div>
 
 		<div class="action-container">
@@ -47,7 +43,7 @@
 		grid-template-columns: 1fr 1fr 1fr;
 		justify-content: space-between;
 		align-items: center;
-		padding-bottom: 1rem;
+		padding-bottom: 2rem;
 	}
 
 	.page-header h1 {
@@ -64,6 +60,7 @@
 	.search-container {
 		display: flex;
 		justify-content: center;
+		position: relative;
 	}
 
 	.action-container {
@@ -74,9 +71,8 @@
 
 	@media (max-width: 768px) {
 		.page-header {
-			flex-direction: column;
 			gap: 1rem;
-			align-items: flex-start;
+			grid-template-columns: 1fr;
 		}
 	}
 </style>

@@ -86,4 +86,10 @@
 		margin-left: auto;
 		color: var(--secondaryText);
 	}
+
+	@media (max-width: 768px) {
+		.page {
+			padding: 1rem;
+		}
+	}
 </style>

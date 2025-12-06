@@ -1,133 +1,184 @@
 <script lang="ts">
-	import CollectionList from '$lib/components/CollectionList.svelte';
 	import ProductDialog from '$lib/components/ProductDialog.svelte';
+	import ListItem from '$lib/components/ui/ListItem.svelte';
+	import Loadingspinner from '$lib/components/ui/Loadingspinner.svelte';
 	import PageHeader from '$lib/components/ui/PageHeader.svelte';
-	import { useProducts } from '$lib/composables/useProducts';
-	import pb from '$lib/pocketbase';
+	import SearchField from '$lib/components/ui/SearchField.svelte';
+	import { formatTimeAgo } from '$lib/formatter/dateFormatters';
+	import PocketBaseCollection, { PocketBaseCollectionAction } from '$lib/pocketbaseCollection';
 	import type Product from '$lib/types/Product';
+	import Icon from '@iconify/svelte';
+	import type { RecordModel, RecordSubscription } from 'pocketbase';
+	import { onDestroy, onMount } from 'svelte';
 
-	// Search state
+	const collection = new PocketBaseCollection<Product>({
+		name: 'products',
+		sort: '-shoppingCartUsages, name',
+		onChange: onCollectionChange
+	});
+
 	let searchQuery = $state('');
+	let isLoading = $state(true);
+	let products = $state<Product[]>([]);
 
-	const { state: productsState, load } = useProducts({
-		sort: 'name'
-	});
-
-	// Create a derived state that mimics the original state but with filtered items
-	const filteredState = $derived.by(() => {
-		const filteredItems = searchQuery.trim()
-			? productsState.items.filter((product) =>
-					product.name.toLowerCase().includes(searchQuery.toLowerCase().trim())
-				)
-			: productsState.items;
-
-		return {
-			...productsState,
-			items: filteredItems
-		};
-	});
-
-	// Dialog state
+	let selectedProduct: Product | null = $state(null);
 	let dialogOpen = $state(false);
 	let dialogMode: 'create' | 'edit' = $state('create');
-	let selectedProduct: Product | null = $state(null);
-	let isLoading = $state(false);
 
-	// Table configuration
-	const columns = [
-		{ key: 'icon', label: 'Icon', icon: true, width: '10%', minWidth: '60px' },
-		{ key: 'name', label: 'Name', width: '60%', minWidth: '200px' },
-		{ key: 'shoppingCartUsages', label: 'Usages', width: '250px', minWidth: '200px' },
-		{ key: 'updated', label: 'Updated', date: true, width: '30%', minWidth: '150px' }
-	];
+	onMount(() => {
+		collection.onMount();
+		getAllRecords();
+	});
+	onDestroy(collection.onDestroy);
+
+	async function getAllRecords(suppressLoading: boolean = false): Promise<void> {
+		if (!suppressLoading) isLoading = true;
+		products = await collection.getAllRecords(`name ~ "${searchQuery}"`);
+		isLoading = false;
+	}
+	async function onCollectionChange(
+		change: RecordSubscription<RecordModel>,
+		record: Product | null
+	) {
+		if (change.action === PocketBaseCollectionAction.CREATE) {
+			products = [record!, ...products];
+			getAllRecords();
+		} else if (change.action === PocketBaseCollectionAction.UPDATE) {
+			products = products.map((product) => (product.id === change.record.id ? record! : product));
+			getAllRecords();
+		} else if (change.action === PocketBaseCollectionAction.DELETE) {
+			products = products.filter((product) => product.id !== change.record.id);
+		}
+	}
 
 	function openCreateDialog() {
 		selectedProduct = null;
 		dialogMode = 'create';
 		dialogOpen = true;
 	}
-
-	function editProduct(product: Product) {
+	function onItemPressed(product: Product) {
 		selectedProduct = product;
 		dialogMode = 'edit';
 		dialogOpen = true;
 	}
-
-	async function handleSave(event: CustomEvent<{ product: Partial<Product> }>) {
-		isLoading = true;
-		try {
-			const productData = event.detail.product;
-
-			if (dialogMode === 'create') {
-				await pb.collection('products').create(productData);
-			} else if (dialogMode === 'edit' && selectedProduct) {
-				await pb.collection('products').update(selectedProduct.id, productData);
-			}
-
-			dialogOpen = false;
-			await load(); // Refresh the list
-		} catch (error) {
-			console.error('Error saving product:', error);
-			// You could add toast notifications here
-		} finally {
-			isLoading = false;
-		}
+	async function onSave(product: Partial<Product>) {
+		collection.saveRecord(product);
+		dialogOpen = false;
+		selectedProduct = null;
 	}
+	async function onDelete(id: string) {
+		collection.deleteRecord(id);
 
-	async function handleDelete(event: CustomEvent<{ id: string }>) {
-		isLoading = true;
-		try {
-			await pb.collection('products').delete(event.detail.id);
-			dialogOpen = false;
-			await load(); // Refresh the list
-		} catch (error) {
-			console.error('Error deleting product:', error);
-			// You could add toast notifications here
-		} finally {
-			isLoading = false;
-		}
+		dialogOpen = false;
+		selectedProduct = null;
 	}
-
-	function handleCancel() {
+	function onCloseDialog() {
 		dialogOpen = false;
 		selectedProduct = null;
 	}
 </script>
 
-<div class="products-page">
-	<PageHeader
-		title="Products"
-		subtitle="{filteredState.items.length} products found"
-		buttonText="Add Product"
-		buttonIcon="mdi:plus"
-		onButtonClick={openCreateDialog}
-		buttonDisabled={isLoading}
-		showSearch={true}
-		bind:searchValue={searchQuery}
-		searchPlaceholder="Search products..."
+{#snippet searchField()}
+	<SearchField
+		bind:value={searchQuery}
+		onsearch={() => getAllRecords(true)}
+		placeholder="Search products..."
 	/>
+{/snippet}
 
-	<CollectionList
-		state={filteredState}
-		{columns}
-		emptyMessage={searchQuery.trim()
-			? `No products found matching "${searchQuery.trim()}".`
-			: "No products found. Click 'Add Product' to create your first product."}
-		onRowClick={editProduct}
-	/>
+<PageHeader
+	title="Products"
+	subtitle="{products.length} products found"
+	buttonText="Add Product"
+	buttonIcon="mdi:plus"
+	onButtonClick={openCreateDialog}
+	buttonDisabled={isLoading}
+	{searchField}
+></PageHeader>
+
+<div class="list">
+	<div class="header item">
+		<div class="primary">Product</div>
+		<div class="primary"></div>
+		<div class="primary">Used</div>
+		<div class="primary">Last Updated</div>
+	</div>
+
+	{#if isLoading}
+		<div class="loading">
+			<Loadingspinner />
+		</div>
+	{:else if products.length === 0}
+		<div class="no-data">
+			{#if searchQuery}
+				<p>No products found for "{searchQuery}".</p>
+			{:else}
+				<p>No products found.</p>
+			{/if}
+		</div>
+	{:else}
+		{#each products as product}
+			<ListItem entity={product} {onItemPressed} gridTemplateColumns="24px 3fr 1fr 1fr">
+				<div class="icon">
+					<Icon icon={product.icon || 'noto:package'} width="24px" height="24px" />
+				</div>
+				<div class="primary bold">{product.name}</div>
+				<div class="primary">{product.shoppingCartUsages}</div>
+				<div class="secondary">{formatTimeAgo(product.updated)}</div>
+			</ListItem>
+		{/each}
+	{/if}
 </div>
 
 <ProductDialog
 	bind:isOpen={dialogOpen}
 	product={selectedProduct}
 	mode={dialogMode}
-	on:save={handleSave}
-	on:delete={handleDelete}
-	on:cancel={handleCancel}
+	onsave={onSave}
+	ondelete={onDelete}
+	oncancel={onCloseDialog}
 />
 
 <style>
-	.products-page {
-		width: 100%;
+	.list {
+		border-radius: 0.5rem;
+		border: 2px solid var(--borderColor);
+		box-shadow: var(--shadow-s);
+	}
+
+	.header {
+		background-color: var(--backgroundLight) !important;
+		border-bottom: 1px solid var(--borderColor);
+		grid-template-columns: 24px 3fr 1fr 1fr;
+		display: grid;
+		gap: 1rem;
+		padding: 1rem;
+		cursor: default !important;
+	}
+
+	.no-data,
+	.loading {
+		padding: 2rem;
+		text-align: center;
+		color: var(--secondaryText);
+		overflow: hidden;
+	}
+
+	.icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.bold {
+		font-weight: bold;
+	}
+
+	.primary {
+		color: var(--primaryText);
+	}
+
+	.secondary {
+		color: var(--secondaryText);
 	}
 </style>

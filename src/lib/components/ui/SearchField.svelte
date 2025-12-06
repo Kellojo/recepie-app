@@ -1,16 +1,39 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 
-	let { value = $bindable(''), placeholder = 'Search...', maxWidth = '300px' } = $props();
+	let {
+		value = $bindable(''),
+		placeholder = 'Search...',
+		maxWidth = '300px',
+		onsearch = () => {},
+		suggestions = null
+	} = $props();
+
+	function onClear() {
+		value = '';
+		onsearch();
+	}
 </script>
 
 <div class="search-container" style="max-width: {maxWidth}">
 	<Icon icon="mdi:magnify" class="search-icon" />
-	<input type="text" {placeholder} bind:value class="search-input" />
+	<input type="text" {placeholder} bind:value class="search-input" oninput={() => onsearch()} />
 	{#if value.trim()}
-		<button class="clear-search" onclick={() => (value = '')} aria-label="Clear search">
+		<button
+			class="clear-search"
+			onclick={() => {
+				onClear();
+			}}
+			aria-label="Clear search"
+		>
 			<Icon icon="mdi:close" />
 		</button>
+	{/if}
+
+	{#if suggestions && value.trim()}
+		<div class="suggestions">
+			{@render suggestions?.()}
+		</div>
 	{/if}
 </div>
 
@@ -70,5 +93,24 @@
 	.clear-search:hover {
 		background: var(--backgroundLight);
 		color: var(--primaryText);
+	}
+
+	.suggestions {
+		position: absolute;
+		bottom: 0%;
+		transform: translateY(calc(100% + 0.5rem));
+
+		background-color: var(--background);
+		border: 1px solid var(--borderColor);
+		border-radius: 0.5rem;
+		box-shadow: var(--shadow-s);
+		width: 100%;
+		overflow: hidden;
+	}
+
+	@media (max-width: 768px) {
+		.search-container {
+			min-width: 100%;
+		}
 	}
 </style>

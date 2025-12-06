@@ -88,6 +88,10 @@
 	.name {
 		font-weight: bold;
 		color: var(--primaryText);
+		overflow: hidden;
+		max-width: 100%;
+		word-break: break-word;
+		text-align: center;
 	}
 
 	.quantity {
